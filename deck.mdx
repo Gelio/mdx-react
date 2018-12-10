@@ -1,46 +1,108 @@
 import { Head, Code, Appear, components as Components } from 'mdx-deck'
 import { FullscreenCode, Split, SplitRight } from 'mdx-deck/layouts'
 
+import ImageWithLabel from './components/image-with-label'
+
 export { default as theme } from './theme'
 
 <Head>
-  <title>Presentation title</title>
+  <title>Introduction to React</title>
 </Head>
 
-# Presentation title
+# Introduction to React
 
-Author: XYZ
+12/10/2018
 
----
-
-export default SplitRight
-
-## Task for today
-
-Using a different layout
-
-- List item 1
-- List item 2
-
-```notes
-Presenter notes are also available
-```
+Author: Grzegorz Rozdzialik
 
 ---
 
-## A regular slide
+## Agenda
 
-```js
-const withSome = 'code'
-```
+1. History - from jQuery to React
+2. Basics of React
+3. Key featues
+4. How to start developing?
 
-```tsx
-interface AlsoTypescript {
-  a: number
-}
+---
 
-const AndTSX = <div />
-```
+## History
+
+### From jQuery to React
+
+---
+
+2006 - first version of jQuery
+
+<ImageWithLabel label="Popularity: jQuery vs Javascript">
+  <img src="./static/jquery-vs-javascript.png" />
+</ImageWithLabel>
+
+---
+
+## jQuery
+
+<Appear>
+  <div>
+  <Components.h3>Pros</Components.h3>
+
+  <Components.ol>
+    <Components.li>Solves browser incompatibility problems</Components.li>
+    <Components.li>Many out-of-the-box UI components</Components.li>
+  </Components.ol>
+  </div>
+  <div>
+  <Components.h3>Cons</Components.h3>
+    
+  <Components.ol>
+    <Components.li>Hard to maintain large codebases</Components.li>
+    <Components.li>Useful for small components, not big apps</Components.li>
+    <Components.li>Using global state / storing state in DOM</Components.li>
+  </Components.ol>
+  </div>
+</Appear>
+
+---
+
+## Solution?
+
+## JS Frameworks
+
+e.g. AngularJS
+
+(aka Angular 1.x)
+
+---
+
+AngularJS vs jQuery
+
+<ImageWithLabel label="Popularity: AngularJS vs jQuery">
+  <img src="./static/jquery-vs-angularjs.png" />
+</ImageWithLabel>
+
+---
+
+## AngularJS
+
+<Appear>
+  <div>
+  <Components.h3>Pros</Components.h3>
+
+  <Components.ol>
+    <Components.li><strong>Components</strong> storing state & logic</Components.li>
+    <Components.li>Many out-of-the-box UI components</Components.li>
+    <Components.li><strong>Dependency Injection</strong> and <strong>Services</strong></Components.li>
+  </Components.ol>
+  </div>
+  <div>
+  <Components.h3>Cons</Components.h3>
+    
+  <Components.ol>
+    <Components.li>2-way data binding - confusing</Components.li>
+    <Components.li>Reduced performance</Components.li>
+  </Components.ol>
+  </div>
+</Appear>
 
 ---
 
