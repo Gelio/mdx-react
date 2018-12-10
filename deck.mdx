@@ -1,7 +1,19 @@
-import { Head, Code, Appear, components as Components } from 'mdx-deck'
-import { FullscreenCode, Split, SplitRight } from 'mdx-deck/layouts'
+import {
+  Head,
+  Code,
+  Appear,
+  components as Components,
+} from 'mdx-deck'
+import {
+  FullscreenCode,
+  Split,
+  SplitRight,
+} from 'mdx-deck/layouts'
 
 import ImageWithLabel from './components/image-with-label'
+
+import ExampleButton from './src/button'
+import SimpleUsersPage from './src/users-page-simple.js'
 
 export { default as theme } from './theme'
 
@@ -19,13 +31,13 @@ Author: Grzegorz Rozdzialik
 
 ## Agenda
 
-1. History - from jQuery to React
-2. Basics & key features of React
+1. Brief history of frontend
+2. Basics & key concepts of React
 3. How to start developing?
 
 ---
 
-## History
+## Brief history of frontend
 
 ### From jQuery to React
 
@@ -34,7 +46,10 @@ Author: Grzegorz Rozdzialik
 2006 - first version of jQuery
 
 <ImageWithLabel label="Popularity: jQuery vs Javascript">
-  <img src="./static/jquery-vs-javascript.png" />
+  <img
+    src="./static/jquery-vs-javascript.png"
+    width="1400"
+  />
 </ImageWithLabel>
 
 ---
@@ -71,7 +86,11 @@ Author: Grzegorz Rozdzialik
 
 e.g. AngularJS
 
-<img src="./static/angularjs.png" width="200" alt="AngularJS" />
+<img
+  src="./static/angularjs.png"
+  width="200"
+  alt="AngularJS"
+/>
 
 (aka Angular 1.x)
 
@@ -80,14 +99,21 @@ e.g. AngularJS
 AngularJS vs jQuery
 
 <ImageWithLabel label="Popularity: AngularJS vs jQuery">
-  <img src="./static/jquery-vs-angularjs.png" />
+  <img
+    src="./static/jquery-vs-angularjs.png"
+    width="1400"
+  />
 </ImageWithLabel>
 
 ---
 
 ## AngularJS
 
-<img src="./static/angularjs.png" width="100" alt="AngularJS" />
+<img
+  src="./static/angularjs.png"
+  width="100"
+  alt="AngularJS"
+/>
 
 <Appear>
   <div>
@@ -127,9 +153,283 @@ AngularJS vs jQuery
 
 ---
 
-## Basics & key features of React
+## _Basics_ & _key concepts_ of React
+
+<img src="./static/react.png" width="400" alt="React" />
 
 ---
+
+### Components
+
+- UI composed of components
+- JSX - HTML on steroids
+
+```js
+function SimpleComponent() {
+  return <div>Content</div>
+}
+```
+
+---
+
+export default SplitRight
+
+### Passing data from parent to children
+
+```js
+function UsersPage() {
+  return (
+    <div>
+      <h1>Users</h1>
+
+      <User name="John" age={12} />
+      <User name="Alice" age={42} />
+    </div>
+  )
+}
+
+function User(props) {
+  return (
+    <div>
+      <div>Name: {props.name}</div>
+      <div>Age: {props.age}</div>
+    </div>
+  )
+}
+```
+
+---
+
+## Result
+
+<div
+  style={{
+    textAlign: 'left',
+    background: 'white',
+    color: 'black',
+  }}
+>
+  <SimpleUsersPage />
+</div>
+
+---
+
+### Props
+
+<img
+  src="./static/react-props.png"
+  alt="Props"
+  width="1000"
+/>
+
+---
+
+export default SplitRight
+
+```js
+function User(props) {
+  return (
+    <div>
+      <div>Name: {props.name}</div>
+
+      <button onClick={props.onClick}>
+        Click a button
+      </button>
+    </div>
+  )
+}
+```
+
+### Child -> parent communication
+
+```js
+function Users() {
+  const onUserClick = () => {
+    console.log('User has been clicked')
+  }
+
+  return (
+    <div>
+      <h1>Users</h1>
+
+      {/* pass an **onClick** callback */}
+      <User name="John" onClick={onUserClick} />
+      <User name="Alice" onClick={onUserClick} />
+    </div>
+  )
+}
+```
+
+---
+
+## Where to store the state?
+
+---
+
+### Functional vs class components
+
+```js
+// **Stateless functional** component
+function FunctionalComponent(props) {
+  return <div>A am functional</div>
+}
+
+// **Class** component
+class ClassComponent extends React.Component {
+  render() {
+    return <div>A am a class component</div>
+  }
+}
+```
+
+---
+
+export default Split
+
+```js
+class Button extends React.Component {
+  state = {
+    hasBeenClicked: false,
+  }
+
+  render() {
+    const { hasBeenClicked } = this.state
+
+    return (
+      <button
+        onClick={this._onButtonClicked}
+        disabled={hasBeenClicked}
+      >
+        Click me
+      </button>
+    )
+  }
+```
+
+### State in class components
+
+```js
+  _onButtonClicked = () => {
+    this.setState({
+      hasBeenClicked: true
+    })
+  }
+}
+```
+
+---
+
+<ExampleButton />
+
+---
+
+export default SplitRight
+
+```js
+class MyInput extends React.Component {
+  state = {
+    value: '',
+  }
+
+  render() {
+    return (
+      <input
+        value={this.state.value}
+        onChange={this.handleChange}
+      />
+    )
+  }
+
+  _handleChange = (event) => {
+    this.setState({
+      value: event.target.value,
+    })
+  }
+}
+```
+
+## One-way data flow
+
+- state is updated explicitly
+- no _dirty_ checking (as in AngularJS)
+
+---
+
+export default SplitRight
+
+<ImageWithLabel label="Javascript frameworks performance (time in ms)">
+  <img src="./static/react-performance.svg" width="800" />
+</ImageWithLabel>
+
+## Performance
+
+- Virtual DOM
+- one-way data flow
+
+---
+
+## Ecosystem of libraries
+
+State management, animations, consuming APIs,
+
+UI libraries, styling (CSS-in-JS)
+
+- `redux`
+- `MobX`
+- `react-spring`
+- `apollo`
+- `antd`
+- `styled-components`
+
+---
+
+export default SplitRight
+
+```js
+<ul>
+  {array.map((element) => (
+    <li key={element.id}>{element.value}</li>
+  ))}
+</ul>
+
+<div>
+  {shouldRenderChild && <Child />}
+</div>
+```
+
+## No new templating language to learn
+
+JSX is just Javascript
+
+---
+
+## How do I start developing?
+
+---
+
+1. Install Node
+2. Use `create-react-app`
+
+[https://github.com/facebook/create-react-app]()
+
+---
+
+<img
+  src="https://camo.githubusercontent.com/29765c4a32f03bd01d44edef1cd674225e3c906b/68747470733a2f2f63646e2e7261776769742e636f6d2f66616365626f6f6b2f6372656174652d72656163742d6170702f323762343261632f73637265656e636173742e737667"
+  alt="create-react-app setup"
+/>
+
+---
+
+## Frontend workshops
+
+### Jak żyć na froncie?
+
+<img
+  src="./static/logo-jak-zyc-na-froncie.png"
+  alt="Frontend workshops"
+  width="1000"
+/>
 
 ---
 

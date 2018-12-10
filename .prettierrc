@@ -8,7 +8,8 @@
     {
       "files": "*.mdx",
       "options": {
-        "semi": false
+        "semi": false,
+        "printWidth": 60
       }
     }
   ]
