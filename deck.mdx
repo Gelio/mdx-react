@@ -52,6 +52,25 @@ Author: Grzegorz Rozdzialik
   />
 </ImageWithLabel>
 
+```notes
+Javascript as decoration on top of HTML websites
+
+* date pickers
+* tabs
+* accordions
+
+So popular, that people started googling more of
+`jQuery` instead of `Javascript`
+
+Not developer-friendly:
+
+1. Browser incompatibilities
+2. Limited APIs
+3. No standards
+
+jQuery solved some issues
+```
+
 ---
 
 <div style={{ background: 'white', padding: 5 }}>
@@ -78,6 +97,16 @@ Author: Grzegorz Rozdzialik
   </div>
 </Appear>
 
+```notes
+jQuery solved some problems, but...
+
+Cons:
+1. No mechanism for state management
+2. Does not scale well
+3. Imperative
+
+```
+
 ---
 
 ## Solution?
@@ -94,6 +123,11 @@ e.g. AngularJS
 
 (aka Angular 1.x)
 
+```notes
+AngularJS is just an example
+Developed by Google
+```
+
 ---
 
 AngularJS vs jQuery
@@ -104,6 +138,11 @@ AngularJS vs jQuery
     width="1400"
   />
 </ImageWithLabel>
+
+```notes
+Easy to spot when AngularJS was first released
+Still not as popular as jQuery
+```
 
 ---
 
@@ -130,11 +169,17 @@ AngularJS vs jQuery
     
   <Components.ol>
     <Components.li>2-way data binding - confusing</Components.li>
-    <Components.li>Template-based (yet another <em>language</em> to learn)</Components.li>
     <Components.li>Reduced performance</Components.li>
+    <Components.li>Template-based (yet another <em>language</em> to learn)</Components.li>
   </Components.ol>
   </div>
 </Appear>
+
+```notes
+Advantages that improved scalability and developer experience
+
+Disadvantages that could be solved by other frameworks
+```
 
 ---
 
@@ -171,6 +216,14 @@ function SimpleComponent() {
 }
 ```
 
+```notes
+Component - just a function with an unusual return value
+JSX - syntax that allows writing HTML-like tags inside Javascript
+Base of React
+
+Components can render HTML or other components (composability).
+```
+
 ---
 
 export default SplitRight
@@ -178,6 +231,15 @@ export default SplitRight
 ### Passing data from parent to children
 
 ```js
+function User(props) {
+  return (
+    <div>
+      <div>Name: {props.name}</div>
+      <div>Age: {props.age}</div>
+    </div>
+  )
+}
+
 function UsersPage() {
   return (
     <div>
@@ -188,15 +250,15 @@ function UsersPage() {
     </div>
   )
 }
+```
 
-function User(props) {
-  return (
-    <div>
-      <div>Name: {props.name}</div>
-      <div>Age: {props.age}</div>
-    </div>
-  )
-}
+```notes
+Components accept data (props, short for properties) from their parents.
+
+Those props could be of any type:
+* primitive (number, string, boolean)
+* objects, arrays
+* functions (also components)
 ```
 
 ---
@@ -223,6 +285,12 @@ function User(props) {
   width="1000"
 />
 
+```notes
+Data is passed one way - from the parent to the child
+
+How can a child influence its parent?
+```
+
 ---
 
 export default SplitRight
@@ -233,7 +301,7 @@ function User(props) {
     <div>
       <div>Name: {props.name}</div>
 
-      <button onClick={props.onClick}>
+      <button onClick={() => props.onClick()}>
         Click a button
       </button>
     </div>
@@ -261,9 +329,21 @@ function Users() {
 }
 ```
 
+```notes
+Child accepts a callback function
+The function is provided by the parent and called by the child
+```
+
 ---
 
 ## Where to store the state?
+
+```notes
+UI is most often dynamic, not static
+Where does the state come from?
+
+Let's introduce another type of components
+```
 
 ---
 
@@ -278,9 +358,22 @@ function FunctionalComponent(props) {
 // **Class** component
 class ClassComponent extends React.Component {
   render() {
+    console.log(this.props.someValue)
+
     return <div>A am a class component</div>
   }
 }
+```
+
+```notes
+Two types of components:
+* functional components
+* class components
+
+Class components have methods. Some of them are special
+because they are used by React (e.g. `render`)
+
+Props are not in a parameter, but in `this.props`
 ```
 
 ---
@@ -316,6 +409,13 @@ class Button extends React.Component {
     })
   }
 }
+```
+
+```notes
+Class components have state.
+Accessed by `this.state`
+
+`this.setState` updates the state and rerenders the component
 ```
 
 ---
@@ -354,6 +454,16 @@ class MyInput extends React.Component {
 - state is updated explicitly
 - no _dirty_ checking (as in AngularJS)
 
+```notes
+Advantages of explicitness:
+
+* easier to debug
+* more performant
+
+Disadvantages:
+* more boilerplate code to write
+```
+
 ---
 
 export default SplitRight
@@ -364,8 +474,17 @@ export default SplitRight
 
 ## Performance
 
-- Virtual DOM
 - one-way data flow
+- Virtual DOM
+
+```notes
+Virtual DOM - tree representation of HTML rendered by React.
+Lives in memory, therefore updating/searching it is more performant
+than regular DOM.
+
+After each render, React finds the diff and applies only the necessary
+changes.
+```
 
 ---
 
@@ -381,26 +500,39 @@ UI libraries, styling (CSS-in-JS)
 - `apollo`
 - `antd`
 - `styled-components`
+- ...
 
 ---
 
 export default SplitRight
 
 ```js
+// Conditional rendering
+<div>
+  {shouldRenderChild && <Child />}
+</div>
+
+// Rendering an array
 <ul>
   {array.map((element) => (
     <li key={element.id}>{element.value}</li>
   ))}
 </ul>
-
-<div>
-  {shouldRenderChild && <Child />}
-</div>
 ```
 
 ## No new templating language to learn
 
 JSX is just Javascript
+
+```notes
+No template langauges to learn
+
+Rendering an array is the most complex scenario
+yet is is just like mapping over a regular JS array.
+
+The function just returns React elements (JSX)
+and not other familiar JS values.
+```
 
 ---
 
@@ -412,6 +544,11 @@ JSX is just Javascript
 2. Use `create-react-app`
 
 [https://github.com/facebook/create-react-app]()
+
+```notes
+Node & npm are required in the frontend world
+`create-react-app` bootstraps the project and is easy to use.
+```
 
 ---
 
@@ -431,6 +568,10 @@ JSX is just Javascript
   alt="Frontend workshops"
   width="1000"
 />
+
+```notes
+Ask me for details
+```
 
 ---
 
