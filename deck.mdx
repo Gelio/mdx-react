@@ -509,7 +509,7 @@ export default SplitRight
 ```js
 // Conditional rendering
 <div>
-  {shouldRenderChild && <Child />}
+  {shouldRenderChild ? <Child /> : null}
 </div>
 
 // Rendering an array
